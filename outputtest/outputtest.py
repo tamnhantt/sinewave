@@ -1,5 +1,6 @@
 import tkinter as tk
 import RPi.GPIO as GPIO
+from Sinwave.sinwave import sinwave  # Corrected import statement
 
 # Cấu hình GPIO
 GPIO.setmode(GPIO.BCM)
@@ -16,7 +17,11 @@ gpio_state = False  # False = Tắt, True = 50% Duty Cycle
 def toggle_gpio():
     global gpio_state
     gpio_state = not gpio_state  # Đảo trạng thái
-    pwm.ChangeDutyCycle(50 if gpio_state else 0)  # 50% khi bật, 0% khi tắt
+    
+    # Lấy dữ liệu từ hàm sinwave
+    new_y = sinwave()  # Giả sử sinwave trả về giá trị từ 0 đến 1
+    
+    pwm.ChangeDutyCycle((100 * new_y) if gpio_state else 0)  # Thay đổi duty cycle dựa trên giá trị sinwave
     
     # Cập nhật text và màu sắc của nút
     btn.config(text="TẮT" if gpio_state else "BẬT", bg="red" if gpio_state else "green")
