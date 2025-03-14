@@ -1,6 +1,6 @@
 import tkinter as tk
-import RPi.GPIO as GPIO
-from Sinwave.sinwave import sinwave  # Corrected import statement
+import pigpio
+from Sinewave.sinwave import sinwave  # Corrected import statement
 
 # Cấu hình GPIO
 GPIO.setmode(GPIO.BCM)

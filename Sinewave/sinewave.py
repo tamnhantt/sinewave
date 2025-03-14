@@ -26,26 +26,24 @@ def update(frame):
     new_x = np.linspace(t, t + 0.001, 100)
     
     if z % 32 < 4:
-        new_y = np.sin(2 * np.pi * 850 * new_x)  # Sóng sin 850Hz
+        new_y = np.sin(2 * np.pi * 850 * new_x)
+        # biến gán vào chỗ 850 này
     else:
         new_y = np.zeros_like(new_x)
 
-    # Kiểm tra nếu sóng đạt đỉnh (từ âm sang dương)
     if np.all(new_y==0):
         z += 1
         
-
-    # Thêm dữ liệu mới
     x_data = np.append(x_data, new_x)
     y_data = np.append(y_data, new_y)
     t += 0.001  
 
     line.set_data(x_data, y_data)
 
-    ax.set_xlim(t - 0.01, t)
+    ax.set_xlim(t - 0.001, t)
+    # cần thay đổi tốc độ chạy thì thay đổi số 0.001 ở đây và dòng 26
 
     return line,
 
-# Chạy animation
 ani = animation.FuncAnimation(fig, update, interval=10)
 plt.show()
